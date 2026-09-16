@@ -1,0 +1,20 @@
+{
+  "California": {
+    "events": 2533,
+    "station_order_mismatch_count": 0,
+    "input_hashes": {
+      "catalogue.csv": "d63ae13f4929c840a82593e56836c9bab92f700d2238a06e6e727006d51ffb9c",
+      "stations.csv": "7f717592b42d6248468da9f9cacbe7cd7baaa8ab92da76eaf31d29474b146da1",
+      "catalogue_station_lookup_final.pickle": "0a3343c77e3677fb5a43a5a1c4bbeeab6c66ab057c47748549fbddc7cad45187"
+    }
+  },
+  "Alaska": {
+    "events": 2206,
+    "station_order_mismatch_count": 0,
+    "input_hashes": {
+      "catalogue.csv": "da3d5804513c780d4e5928e7206ce151f1316281bf5d1daf64375f5baca8fd88",
+      "stations.csv": "fc70fe10bc3c0c91230aae51d0e003dc29866c6d6b4365cd78b5d16a65ae63f8",
+      "catalogue_station_lookup_final.pickle": "fdcfe01a04080e68cacf659af61ddbce660c77de7bf6cc576c63329b467eb6dd"
+    }
+  }
+}

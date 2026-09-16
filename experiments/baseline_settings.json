@@ -1,0 +1,126 @@
+{
+  "Alaska/team_lm": {
+    "model": "team_lm",
+    "region": "Alaska",
+    "message_passing": "TEAM-LM",
+    "readout": "External implementation",
+    "seed": 42,
+    "initial_lr": 0.0001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 59,
+      "maxlatitude": 63,
+      "minlongitude": -153,
+      "maxlongitude": -147,
+      "maxdepth": 250000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 111,
+      "km_per_degree_longitude": 54
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 150
+    }
+  },
+  "California/team_lm": {
+    "model": "team_lm",
+    "region": "California",
+    "message_passing": "TEAM-LM",
+    "readout": "External implementation",
+    "seed": 42,
+    "initial_lr": 0.0001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 32,
+      "maxlatitude": 36,
+      "minlongitude": -120,
+      "maxlongitude": -116,
+      "maxdepth": 30000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 110,
+      "km_per_degree_longitude": 92
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 150
+    }
+  },
+  "Alaska/stgnn": {
+    "model": "stgnn",
+    "region": "Alaska",
+    "message_passing": "STGNN",
+    "readout": "External implementation",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 59,
+      "maxlatitude": 63,
+      "minlongitude": -153,
+      "maxlongitude": -147,
+      "maxdepth": 250000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 111,
+      "km_per_degree_longitude": 54
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "California/stgnn": {
+    "model": "stgnn",
+    "region": "California",
+    "message_passing": "STGNN",
+    "readout": "External implementation",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 32,
+      "maxlatitude": 36,
+      "minlongitude": -120,
+      "maxlongitude": -116,
+      "maxdepth": 30000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 110,
+      "km_per_degree_longitude": 92
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  }
+}

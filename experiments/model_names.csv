@@ -1,0 +1,7 @@
+legacy_id,model_name
+v51,transformer_attention
+v52,transformer_max
+v53,no_message_attention
+v54,no_message_max
+v55_gcn,gcn_max
+v65,gcn_attention

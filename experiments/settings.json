@@ -1,0 +1,422 @@
+{
+  "California/transformer_attention": {
+    "model": "transformer_attention",
+    "region": "California",
+    "message_passing": "Graph Transformer",
+    "readout": "Global attention pooling",
+    "notebook": "experiments/California/transformer_attention.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 32,
+      "maxlatitude": 36,
+      "minlongitude": -120,
+      "maxlongitude": -116,
+      "maxdepth": 30000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 110,
+      "km_per_degree_longitude": 92
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/California/transformer_attention/best-model.pth",
+    "checkpoint_sha256": "fdf05dab85aef2ee4df71e79f4901858613daf01a8930e055bab04b48d287147",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "Alaska/transformer_attention": {
+    "model": "transformer_attention",
+    "region": "Alaska",
+    "message_passing": "Graph Transformer",
+    "readout": "Global attention pooling",
+    "notebook": "experiments/Alaska/transformer_attention.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 59,
+      "maxlatitude": 63,
+      "minlongitude": -153,
+      "maxlongitude": -147,
+      "maxdepth": 250000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 111,
+      "km_per_degree_longitude": 54
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/Alaska/transformer_attention/best-model.pth",
+    "checkpoint_sha256": "3eaab3312b4a81861ad819924ea1c48a9b5acd3199e2f3942d41c8ce1e85a3e6",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "California/transformer_max": {
+    "model": "transformer_max",
+    "region": "California",
+    "message_passing": "Graph Transformer",
+    "readout": "Global max pooling",
+    "notebook": "experiments/California/transformer_max.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 32,
+      "maxlatitude": 36,
+      "minlongitude": -120,
+      "maxlongitude": -116,
+      "maxdepth": 30000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 110,
+      "km_per_degree_longitude": 92
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/California/transformer_max/best-model.pth",
+    "checkpoint_sha256": "699115d36fdb70682203fe954288e6ee5340e686dd48efdd92f8a5f4bff49c3c",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "Alaska/transformer_max": {
+    "model": "transformer_max",
+    "region": "Alaska",
+    "message_passing": "Graph Transformer",
+    "readout": "Global max pooling",
+    "notebook": "experiments/Alaska/transformer_max.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 59,
+      "maxlatitude": 63,
+      "minlongitude": -153,
+      "maxlongitude": -147,
+      "maxdepth": 250000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 111,
+      "km_per_degree_longitude": 54
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/Alaska/transformer_max/best-model.pth",
+    "checkpoint_sha256": "0328861d3ad7345d26f4531527d227c03d9bee19824bad7d6309df2a34a1d4c2",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "California/no_message_attention": {
+    "model": "no_message_attention",
+    "region": "California",
+    "message_passing": "No message passing",
+    "readout": "Global attention pooling",
+    "notebook": "experiments/California/no_message_attention.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 32,
+      "maxlatitude": 36,
+      "minlongitude": -120,
+      "maxlongitude": -116,
+      "maxdepth": 30000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 110,
+      "km_per_degree_longitude": 92
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/California/no_message_attention/best-model.pth",
+    "checkpoint_sha256": "22526db65e15c51787ea73a364fe91dba8fc4460a96ef87a299f0d587245cac6",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "Alaska/no_message_attention": {
+    "model": "no_message_attention",
+    "region": "Alaska",
+    "message_passing": "No message passing",
+    "readout": "Global attention pooling",
+    "notebook": "experiments/Alaska/no_message_attention.ipynb",
+    "seed": 42,
+    "initial_lr": 0.0001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 59,
+      "maxlatitude": 63,
+      "minlongitude": -153,
+      "maxlongitude": -147,
+      "maxdepth": 250000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 111,
+      "km_per_degree_longitude": 54
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/Alaska/no_message_attention/best-model.pth",
+    "checkpoint_sha256": "5acb3ae89bd5746b16ce307fe5a22dc709508231bd30d1d36967da8d7df6d5d1",
+    "verified_retry": true,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "California/no_message_max": {
+    "model": "no_message_max",
+    "region": "California",
+    "message_passing": "No message passing",
+    "readout": "Global max pooling",
+    "notebook": "experiments/California/no_message_max.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 32,
+      "maxlatitude": 36,
+      "minlongitude": -120,
+      "maxlongitude": -116,
+      "maxdepth": 30000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 110,
+      "km_per_degree_longitude": 92
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/California/no_message_max/best-model.pth",
+    "checkpoint_sha256": "545f38211b21907acb4e445bd78213c6aadbacb5e716446c295a3a5c484f58d8",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "Alaska/no_message_max": {
+    "model": "no_message_max",
+    "region": "Alaska",
+    "message_passing": "No message passing",
+    "readout": "Global max pooling",
+    "notebook": "experiments/Alaska/no_message_max.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 59,
+      "maxlatitude": 63,
+      "minlongitude": -153,
+      "maxlongitude": -147,
+      "maxdepth": 250000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 111,
+      "km_per_degree_longitude": 54
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/Alaska/no_message_max/best-model.pth",
+    "checkpoint_sha256": "8353d136f16b1f66852b17cb347721b6c3289c793f9ec8b94a70ecb46f107657",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 60
+    }
+  },
+  "California/gcn_max": {
+    "model": "gcn_max",
+    "region": "California",
+    "message_passing": "GCN",
+    "readout": "Global max pooling",
+    "notebook": "experiments/California/gcn_max.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 32,
+      "maxlatitude": 36,
+      "minlongitude": -120,
+      "maxlongitude": -116,
+      "maxdepth": 30000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 110,
+      "km_per_degree_longitude": 92
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/California/gcn_max/best-model.pth",
+    "checkpoint_sha256": "accd6796f5c7aeed74ab2d6b9afa021517feddfa166b394e1d0cc95b9dcfaf5f",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "Alaska/gcn_max": {
+    "model": "gcn_max",
+    "region": "Alaska",
+    "message_passing": "GCN",
+    "readout": "Global max pooling",
+    "notebook": "experiments/Alaska/gcn_max.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 59,
+      "maxlatitude": 63,
+      "minlongitude": -153,
+      "maxlongitude": -147,
+      "maxdepth": 250000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 111,
+      "km_per_degree_longitude": 54
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/Alaska/gcn_max/best-model.pth",
+    "checkpoint_sha256": "971c977b859a968e6837230288a57096a307bb22b676ddea8406686f4a2b4728",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 50
+    }
+  },
+  "California/gcn_attention": {
+    "model": "gcn_attention",
+    "region": "California",
+    "message_passing": "GCN",
+    "readout": "Global attention pooling",
+    "notebook": "experiments/California/gcn_attention.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 32,
+      "maxlatitude": 36,
+      "minlongitude": -120,
+      "maxlongitude": -116,
+      "maxdepth": 30000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 110,
+      "km_per_degree_longitude": 92
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/California/gcn_attention/best-model.pth",
+    "checkpoint_sha256": "d6561fd9a3ed5fc492eb4316c317a8edbcd6b7c26f64b534f1eae6f766f131bc",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 70
+    }
+  },
+  "Alaska/gcn_attention": {
+    "model": "gcn_attention",
+    "region": "Alaska",
+    "message_passing": "GCN",
+    "readout": "Global attention pooling",
+    "notebook": "experiments/Alaska/gcn_attention.ipynb",
+    "seed": 42,
+    "initial_lr": 0.001,
+    "second_stage_lr": 2e-05,
+    "checkpoint_selection": "minimum validation loss",
+    "batch_size": 32,
+    "normalization": {
+      "minlatitude": 59,
+      "maxlatitude": 63,
+      "minlongitude": -153,
+      "maxlongitude": -147,
+      "maxdepth": 250000,
+      "minmag": 3,
+      "maxmag": 6,
+      "km_per_degree_latitude": 111,
+      "km_per_degree_longitude": 54
+    },
+    "split": [
+      0.8,
+      0.1,
+      "remainder"
+    ],
+    "checkpoint": "save/Alaska/gcn_attention/best-model.pth",
+    "checkpoint_sha256": "6927f32db5236edea99cc2d75020bc13534c26d46097da185f94499d7ec3185b",
+    "verified_retry": false,
+    "training_loop": {
+      "num_epochs": 50,
+      "no_improve_epoch": 70
+    }
+  }
+}
