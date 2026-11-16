@@ -1,0 +1,9 @@
+data/
+save/
+runs/
+cross_region_new_run/
+__pycache__/
+.ipynb_checkpoints/
+*.pth
+*.pt
+.env

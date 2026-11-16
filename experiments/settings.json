@@ -282,13 +282,12 @@
   "California/gcn_max": {
     "model": "gcn_max",
     "region": "California",
-    "message_passing": "GCN",
+    "message_passing": "Correct-coordinate symmetric five-nearest-neighbour GCN",
     "readout": "Global max pooling",
-    "notebook": "experiments/California/gcn_max.ipynb",
     "seed": 42,
     "initial_lr": 0.001,
     "second_stage_lr": 2e-05,
-    "checkpoint_selection": "minimum validation loss",
+    "checkpoint_selection": "Minimum ReLU-stage validation weighted L1, including the switch-time epoch-zero model",
     "batch_size": 32,
     "normalization": {
       "minlatitude": 32,
@@ -306,24 +305,37 @@
       0.1,
       "remainder"
     ],
-    "checkpoint": "save/California/gcn_max/best-model.pth",
-    "checkpoint_sha256": "accd6796f5c7aeed74ab2d6b9afa021517feddfa166b394e1d0cc95b9dcfaf5f",
-    "verified_retry": false,
+    "checkpoint": "save/California/gcn_max/{graph}/checkpoints/relu-best.pth",
     "training_loop": {
-      "num_epochs": 50,
-      "no_improve_epoch": 50
-    }
+      "silu_min_epochs": 150,
+      "silu_max_epochs": 1000,
+      "relu_min_epochs": 50,
+      "relu_max_epochs": 200,
+      "no_improve_epoch": 50,
+      "switch": "Restore best SiLU weights, replace activations, create fresh Adam at 2e-5"
+    },
+    "graph_schemes": [
+      "knn",
+      "median"
+    ],
+    "default_graph": "knn",
+    "graph_definitions": {
+      "knn": "Euclidean distance in normalized input station coordinates; five neighbours plus reverse edges",
+      "median": "Exact maximum median of all pair distances among the target and five neighbours; Haversine km after inverse normalization; plus reverse edges"
+    },
+    "encoder_training": "First eleven CNN activations: SiLU pretraining, then ReLU fine-tuning; final CNN Tanh unchanged",
+    "reference_validation": "Use --strict-reference only for the original experiment environment; other environments record initialization/RNG matches without requiring bitwise equality",
+    "runner": "training/gcn_runner.py"
   },
   "Alaska/gcn_max": {
     "model": "gcn_max",
     "region": "Alaska",
-    "message_passing": "GCN",
+    "message_passing": "Correct-coordinate symmetric five-nearest-neighbour GCN",
     "readout": "Global max pooling",
-    "notebook": "experiments/Alaska/gcn_max.ipynb",
     "seed": 42,
     "initial_lr": 0.001,
     "second_stage_lr": 2e-05,
-    "checkpoint_selection": "minimum validation loss",
+    "checkpoint_selection": "Minimum ReLU-stage validation weighted L1, including the switch-time epoch-zero model",
     "batch_size": 32,
     "normalization": {
       "minlatitude": 59,
@@ -341,24 +353,37 @@
       0.1,
       "remainder"
     ],
-    "checkpoint": "save/Alaska/gcn_max/best-model.pth",
-    "checkpoint_sha256": "971c977b859a968e6837230288a57096a307bb22b676ddea8406686f4a2b4728",
-    "verified_retry": false,
+    "checkpoint": "save/Alaska/gcn_max/{graph}/checkpoints/relu-best.pth",
     "training_loop": {
-      "num_epochs": 50,
-      "no_improve_epoch": 50
-    }
+      "silu_min_epochs": 150,
+      "silu_max_epochs": 1000,
+      "relu_min_epochs": 50,
+      "relu_max_epochs": 200,
+      "no_improve_epoch": 50,
+      "switch": "Restore best SiLU weights, replace activations, create fresh Adam at 2e-5"
+    },
+    "graph_schemes": [
+      "knn",
+      "median"
+    ],
+    "default_graph": "knn",
+    "graph_definitions": {
+      "knn": "Euclidean distance in normalized input station coordinates; five neighbours plus reverse edges",
+      "median": "Exact maximum median of all pair distances among the target and five neighbours; Haversine km after inverse normalization; plus reverse edges"
+    },
+    "encoder_training": "First eleven CNN activations: SiLU pretraining, then ReLU fine-tuning; final CNN Tanh unchanged",
+    "reference_validation": "Use --strict-reference only for the original experiment environment; other environments record initialization/RNG matches without requiring bitwise equality",
+    "runner": "training/gcn_runner.py"
   },
   "California/gcn_attention": {
     "model": "gcn_attention",
     "region": "California",
-    "message_passing": "GCN",
+    "message_passing": "Correct-coordinate symmetric five-nearest-neighbour GCN",
     "readout": "Global attention pooling",
-    "notebook": "experiments/California/gcn_attention.ipynb",
     "seed": 42,
     "initial_lr": 0.001,
     "second_stage_lr": 2e-05,
-    "checkpoint_selection": "minimum validation loss",
+    "checkpoint_selection": "Minimum ReLU-stage validation weighted L1, including the switch-time epoch-zero model",
     "batch_size": 32,
     "normalization": {
       "minlatitude": 32,
@@ -376,24 +401,37 @@
       0.1,
       "remainder"
     ],
-    "checkpoint": "save/California/gcn_attention/best-model.pth",
-    "checkpoint_sha256": "d6561fd9a3ed5fc492eb4316c317a8edbcd6b7c26f64b534f1eae6f766f131bc",
-    "verified_retry": false,
+    "checkpoint": "save/California/gcn_attention/{graph}/checkpoints/relu-best.pth",
     "training_loop": {
-      "num_epochs": 50,
-      "no_improve_epoch": 70
-    }
+      "silu_min_epochs": 150,
+      "silu_max_epochs": 1000,
+      "relu_min_epochs": 50,
+      "relu_max_epochs": 200,
+      "no_improve_epoch": 70,
+      "switch": "Restore best SiLU weights, replace activations, create fresh Adam at 2e-5"
+    },
+    "graph_schemes": [
+      "knn",
+      "median"
+    ],
+    "default_graph": "knn",
+    "graph_definitions": {
+      "knn": "Euclidean distance in normalized input station coordinates; five neighbours plus reverse edges",
+      "median": "Exact maximum median of all pair distances among the target and five neighbours; Haversine km after inverse normalization; plus reverse edges"
+    },
+    "encoder_training": "First eleven CNN activations: SiLU pretraining, then ReLU fine-tuning; final CNN Tanh unchanged",
+    "reference_validation": "Use --strict-reference only for the original experiment environment; other environments record initialization/RNG matches without requiring bitwise equality",
+    "runner": "training/gcn_runner.py"
   },
   "Alaska/gcn_attention": {
     "model": "gcn_attention",
     "region": "Alaska",
-    "message_passing": "GCN",
+    "message_passing": "Correct-coordinate symmetric five-nearest-neighbour GCN",
     "readout": "Global attention pooling",
-    "notebook": "experiments/Alaska/gcn_attention.ipynb",
     "seed": 42,
     "initial_lr": 0.001,
     "second_stage_lr": 2e-05,
-    "checkpoint_selection": "minimum validation loss",
+    "checkpoint_selection": "Minimum ReLU-stage validation weighted L1, including the switch-time epoch-zero model",
     "batch_size": 32,
     "normalization": {
       "minlatitude": 59,
@@ -411,12 +449,26 @@
       0.1,
       "remainder"
     ],
-    "checkpoint": "save/Alaska/gcn_attention/best-model.pth",
-    "checkpoint_sha256": "6927f32db5236edea99cc2d75020bc13534c26d46097da185f94499d7ec3185b",
-    "verified_retry": false,
+    "checkpoint": "save/Alaska/gcn_attention/{graph}/checkpoints/relu-best.pth",
     "training_loop": {
-      "num_epochs": 50,
-      "no_improve_epoch": 70
-    }
+      "silu_min_epochs": 150,
+      "silu_max_epochs": 1000,
+      "relu_min_epochs": 50,
+      "relu_max_epochs": 200,
+      "no_improve_epoch": 70,
+      "switch": "Restore best SiLU weights, replace activations, create fresh Adam at 2e-5"
+    },
+    "graph_schemes": [
+      "knn",
+      "median"
+    ],
+    "default_graph": "knn",
+    "graph_definitions": {
+      "knn": "Euclidean distance in normalized input station coordinates; five neighbours plus reverse edges",
+      "median": "Exact maximum median of all pair distances among the target and five neighbours; Haversine km after inverse normalization; plus reverse edges"
+    },
+    "encoder_training": "First eleven CNN activations: SiLU pretraining, then ReLU fine-tuning; final CNN Tanh unchanged",
+    "reference_validation": "Use --strict-reference only for the original experiment environment; other environments record initialization/RNG matches without requiring bitwise equality",
+    "runner": "training/gcn_runner.py"
   }
 }

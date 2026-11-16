@@ -1,0 +1,18 @@
+{
+  "California/gcn_max": {
+    "expected_initial_model_digest": "a9b827a4bc6820688c017d04a7b4ad8665986c5548c9a953476ee446fb244cdd",
+    "expected_post_constructor_rng_digest": "71747e23ea5f2b2eda48147ae969c289a9dbc3a123c9892111768fc7afae75a2"
+  },
+  "Alaska/gcn_max": {
+    "expected_initial_model_digest": "a9b827a4bc6820688c017d04a7b4ad8665986c5548c9a953476ee446fb244cdd",
+    "expected_post_constructor_rng_digest": "f11148acdf7c6568e92e3fd07b222b1f151e279fede83e26bd07301f57381efa"
+  },
+  "California/gcn_attention": {
+    "expected_initial_model_digest": "a9b827a4bc6820688c017d04a7b4ad8665986c5548c9a953476ee446fb244cdd",
+    "expected_post_constructor_rng_digest": "71747e23ea5f2b2eda48147ae969c289a9dbc3a123c9892111768fc7afae75a2"
+  },
+  "Alaska/gcn_attention": {
+    "expected_initial_model_digest": "a9b827a4bc6820688c017d04a7b4ad8665986c5548c9a953476ee446fb244cdd",
+    "expected_post_constructor_rng_digest": "f11148acdf7c6568e92e3fd07b222b1f151e279fede83e26bd07301f57381efa"
+  }
+}

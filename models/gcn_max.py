@@ -513,7 +513,7 @@ class GraphNet(nn.Module):
         # x = (x * weights_exp).sum(dim=1)  # (B, 128)
 
         # 根据台站坐标为每个样本分别构造有效台站的无向 KNN 图
-        coords_flat = coords[:, :2, :, :].reshape(B, N_sub, 2)
+        coords_flat = coords[:, :2, :, :].squeeze(-1).permute(0, 2, 1)
         edge_indices = []
         for batch_idx in range(B):
             valid_nodes = torch.nonzero(mask[batch_idx] > 0, as_tuple=False).flatten()
@@ -537,7 +537,7 @@ class GraphNet(nn.Module):
         else:
             edge_index = torch.empty((2, 0), dtype=torch.long, device=x.device)
 
-        # GCN 负责台站间信息交互，其余部分沿用无消息传递＋最大池化配置
+        # GCN 只负责台站间信息交互，其余结构保持 v54 不变
         x = self.gcn_conv(x.reshape(B * N_sub, 128), edge_index)
         x = x.reshape(B, N_sub, 128)
 

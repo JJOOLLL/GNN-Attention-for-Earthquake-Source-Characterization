@@ -504,8 +504,8 @@ class GraphNet(nn.Module):
         # 构造节点掩码，weights>0的视为有效节点 (B, N_sub)
         mask = (weights > 0).float()
 
-        # 用 GCN 进行台站间信息交互，台站图由有效台站坐标构建
-        coords_flat = coords[:, :2, :, :].reshape(B, N_sub, 2)
+        # 用 GCN 替换 v51 的多头图注意力，台站图由有效台站坐标构建
+        coords_flat = coords[:, :2, :, :].squeeze(-1).permute(0, 2, 1)
         edge_indices = []
         for batch_idx in range(B):
             valid_nodes = torch.nonzero(mask[batch_idx] > 0, as_tuple=False).flatten()

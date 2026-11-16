@@ -1,43 +1,53 @@
 # 数据准备 / Data preparation
 
-## 已确认的输入格式 / Verified input contract
+## 输入 / Input layout
 
 ```text
 GNN_DATA_ROOT/
-  data_DA/                         # California
+  data_DA/                         # Southern California
   data_ANCHORAGE_DA/               # Alaska
-    catalogue.csv
-    stations.csv
-    catalogue_station_lookup_final.pickle
-    waveforms_proc_broadband/<event_id>.npy
 ```
 
-两个地区均需相同布局。`catalogue.csv` 至少包含 `lat, lon, depth, mag`，深度单位为米；训练按原始行索引识别事件，因此不能重排行。`stations.csv` 包含 `code, lat, lon`。lookup 中每个事件的台站顺序必须与波形第一个维度和台站坐标顺序一致。每个波形数组形状为 `[stations, time, 3]`。只加载可信来源的 pickle 文件，不要加载陌生人提供的 pickle。
+每个地区目录包含以下文件 / Each regional folder contains:
 
-Both regional folders use this layout. Catalogue depth is in metres. The original row order defines event IDs and must not change. Waveform station order must match the lookup and selected station coordinates. Arrays have shape `[stations, time, 3]`. Only load pickle files from trusted sources.
+```text
+catalogue.csv
+stations.csv
+catalogue_station_lookup_final.pickle
+waveforms_proc_broadband/<event_id>.npy
+```
 
-`data_preparation/input_hashes.json` 保存论文实际使用的三个目录文件 SHA-256；`results/splits/` 保存精确划分。训练会检查这些信息。重新请求 FDSN 数据可能得到不同的目录顺序、可用波形或修订参数，不能保证仅靠同一个随机种子重现原划分。
+目录包含 `lat, lon, depth, mag`，深度为米；事件编号沿用原始行索引，不可重排行。台站表包含 `code, lat, lon`。lookup 台站顺序必须与波形及坐标顺序一致。波形形状为 `[stations, time, 3]`。只加载可信来源的 pickle 数据及权重。
 
-The provenance file records SHA-256 hashes for the exact catalogue, station table, and lookup used in the paper. Exact split IDs are included. A fresh FDSN query may return a different catalogue or different available waveforms; a matching seed alone does not establish reproduction.
+Catalogue fields include `lat, lon, depth, mag`; depth is in metres, and original row indices identify events. Station fields include `code, lat, lon`. Lookup station order must match waveform and coordinate order. Arrays have shape `[stations, time, 3]`. Load pickle data and checkpoints only from trusted sources.
 
-## 南加州脚本 / California workflow
+`reference_data.json` 按地区合并保存三个原输入索引文件的 SHA-256、训练/验证/测试事件编号及测试台站选择，保留原顺序。训练入口读取这些配置核对输入，不依赖归档预测结果。原始和处理后波形的大文件未打包。
 
-`download_california.ipynb` 来自原公开仓库提交 `6149eece34ab7cc1af0752870283726a1abec605`。保留原始科学处理：CI 台网，纬度32–36，经度-120至-116，时间2000-01-01至2020-01-01，最小震级查询值3.0；BH* 通道，事件前60秒至后180秒下载窗；去趋势、去仪器响应、0.1–8 Hz零相位带通、振幅乘1e5，插值为覆盖事件前40秒至后160秒的4096个点。
+`reference_data.json` combines the original input hashes, event splits, and test-station selection by region, preserving their order. Training reads this configuration without depending on archived predictions. Large waveform files are not bundled.
 
-该插值网格包含两端点，名义间隔为200/4095秒，不能直接声称采样率是精确20 Hz。三分量沿用原始 ObsPy stream 顺序，尚未证明所有波形均为固定的 Z/N/E 顺序；本次未擅自重排历史输入。训练/测试再裁出2048点；测试起点为820。
+## 下载流程 / Download workflows
 
-The included California notebook retains the original query and signal-processing steps. It interpolates 4096 points over 200 seconds, including both endpoints; the grid is not exactly 20 Hz. Component order follows the original ObsPy stream order and has not been established as a universal Z/N/E ordering. No historical input is silently reordered. Evaluation uses a 2048-sample crop starting at index 820.
+| Notebook | Network | Period | Latitude | Longitude |
+|---|---|---|---|---|
+| `download_california.ipynb` | CI | 2000-01-01 – 2020-01-01 | 32–36° N | 120–116° W |
+| `download_alaska.ipynb` | AK | 2015-01-01 – 2025-01-01 | 59–63° N | 153–147° W |
 
-包装修改仅包括：使用 `GNN_DATA_ROOT`；默认 `ALLOW_DOWNLOAD=False`；已有非空数据目录拒绝继续，而不是删除；缓存目录文件写入区域数据目录；清空 notebook 历史输出。下载未在本次执行，网络服务的当前可用性尚未验证。重新下载获得的文件若与论文快照不同，训练入口会明确报错；应先核对快照，不能关闭检查后仍声称复现原结果。
+两者保留原流程的数值处理：最小震级查询值 3.0；下载发震前 60 秒至后 180 秒 BH* 波形；去趋势、去仪器响应、0.1–8 Hz 零相位带通；振幅乘 `1e5`，在发震前 40 秒至后 160 秒插值为 4096 点。网格含两端点，间隔为 `200/4095` 秒。模型裁取 2048 点，测试起点为 820。
 
-Packaging changes are limited to portable paths, an explicit download opt-in, refusal to overwrite a non-empty data directory, region-local metadata paths, and removal of old outputs. The download was not executed in this packaging task, and current service availability was not tested. Hash mismatches must be resolved before claiming reproduction of the paper results.
+Both retain the original numerical processing: minimum-magnitude query 3.0; BH* waveforms from −60 to +180 s; detrending, response removal, zero-phase 0.1–8 Hz filtering, amplitude scaling by `1e5`, and interpolation to 4096 points from −40 to +160 s. Both endpoints are included, giving an interval of `200/4095` s. Models use a 2048-sample crop; testing starts at index 820.
 
-## 阿拉斯加待补项 / Alaska gap
+三分量保留原 ObsPy Stream 顺序；未为打包而重排历史输入。
 
-已找到最终训练配置、实际数据文件哈希、三集合编号、台站选择及测试预测，但在本次检查的定位项目和旧定位目录中未找到阿拉斯加原始下载脚本。不能把南加州脚本仅修改边界后称为“论文实际使用的阿拉斯加流程”。
+Component order follows the original ObsPy Stream order; packaging does not reorder historical inputs.
 
-The final Alaska model settings, input hashes, split IDs, station selections, and predictions are available. The original Alaska download/preprocessing notebook was not located in the inspected project directories. Changing only the California query bounds would not establish that it is the workflow actually used in the paper.
+## 运行 / Running
 
-需作者提供原脚本或可公开获取的处理后数据快照及使用条件。原始波形和准备好的数据下载地址均未包含在本包内。
+从仓库启动 Jupyter，设置 `GNN_DATA_ROOT`，打开对应 notebook。确认输出为新目录后，将 `ALLOW_DOWNLOAD` 改为 `True` 并顺序运行。非空目录会被拒绝，不删除已有文件。地图预览默认关闭，开启需安装 ObsPy 支持的地图后端。
 
-The original script or an accessible processed-data snapshot and its usage conditions must be supplied. Raw waveforms and a prepared-data download URL are not included.
+Start Jupyter from the repository and set `GNN_DATA_ROOT`. Open the regional notebook, check the new destination, set `ALLOW_DOWNLOAD=True`, and run in order. Non-empty destinations are rejected. Optional map previews require an ObsPy-supported mapping backend.
+
+下载可能耗时数小时。FDSN 目录和可用记录会更新，新下载不保证原事件顺序或相同哈希；差异应先核对，再判断是否复现了原结果。本次发布整理未执行下载。
+
+Downloads may take hours. FDSN catalogues and record availability change, so fresh downloads may not match archived input hashes. Resolve differences before claiming reproduction. Downloads were not executed during packaging.
+
+数据来源 / Sources: [CI](https://doi.org/10.7914/SN/CI), [AK](https://doi.org/10.7914/SN/AK), [FDSN services](https://service.iris.edu/).
