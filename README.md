@@ -1,61 +1,62 @@
-# Attention in GNN-based Earthquake Source Characterization
+# Attention-Informed Graph Construction for Earthquake Source Characterization
 
 [中文说明](README.zh-CN.md)
 
-This repository compares attention in inter-station message passing and graph-level readout for earthquake location and magnitude estimation in Southern California and Alaska.
+Code accompanying **Attention-Informed Graph Construction for Earthquake Source Characterization**. The manuscript has been submitted and is not yet published.
 
-## Models
+We compare message passing and readout in multistation graph neural networks. Long-range interaction patterns identified through attention analysis guide maximum-median-distance neighbour selection, replacing geographical kNN selection without prior source locations.
 
-| Name | Message passing | Readout |
+## Six configurations
+
+| CLI name | Message passing | Readout |
 |---|---|---|
-| `transformer_attention` | Graph Transformer | Attention pooling |
-| `transformer_max` | Graph Transformer | Max pooling |
-| `no_message_attention` | None | Attention pooling |
-| `no_message_max` | None | Max pooling |
-| `gcn_attention` | GCN | Attention pooling |
-| `gcn_max` | GCN | Max pooling |
+| `no_message_max` | None | Global max pooling (GNN baseline) |
+| `no_message_attention` | None | Global attention pooling |
+| `gcn_max` | GCN | Global max pooling |
+| `gcn_attention` | GCN | Global attention pooling |
+| `transformer_max` | Graph Transformer | Global max pooling |
+| `transformer_attention` | Graph Transformer | Global attention pooling |
 
-These are the six controlled configurations implemented in this study. The names describe structure, not performance ranking. TEAM-LM and STGNN source code and runners are excluded; their paper comparison results and experimental settings are retained separately. Legacy experiment IDs appear only in [the mapping table](experiments/model_names.csv).
+Models predict latitude, longitude, depth, and magnitude. GT uses a complete graph; GCN supports kNN and maximum-median graphs. The framework builds on van den Ende & Ampuero (2020); see [REFERENCES.md](REFERENCES.md).
 
 ## Layout
 
-```text
-models/              Six model implementations
-experiments/         Regional training notebooks, settings and checks
-data_preparation/    California download notebook and data instructions
-results/             Paper metrics, predictions, splits and station selections
-run.py               Single-experiment entry point; no training by default
-```
+- `models/`: six model configurations.
+- `graphs/`: exact maximum-median selection and GCN integration; see the [graph guide](graphs/README.md).
+- `training/`: final GCN runner; `source_cells/` contains the preparation and evaluation code it executes.
+- `experiments/`: regional notebooks for the other four configurations, cross-region evaluation, and settings.
+- `data_preparation/`: both download workflows; `reference_data.json` combines input hashes, fixed event splits, and test-station selection.
 
-## Quick start
+## Running
 
-The original environment used Python 3.12.8 and PyTorch 2.5.1. Install a suitable PyTorch CPU/CUDA build, then:
+The experiment environment used Python 3.12.8, PyTorch 2.5.1, and PyG 2.6.1. Install the appropriate PyTorch build for your device, then:
 
 ```bash
-python -m pip install -r requirements.txt
-python -m ipykernel install --user --name gnn-paper --display-name "GNN paper"
-python experiments/verify_results.py
+pip install -r requirements.txt
+python -m ipykernel install --user --name gnn-paper --display-name "Python (gnn-paper)"
+```
+
+Configuration preview does not start training:
+
+```bash
 python run.py --model transformer_max --region California
+python run.py --model gcn_max --region Alaska --graph median
 ```
 
-The last command displays settings only. To train after obtaining the original processed data:
+Prepare inputs using the [data guide](data_preparation/README.md), then explicitly add `--execute`:
 
 ```bash
-python run.py --model transformer_max --region California --data-root /path/to/data --kernel gnn-paper --execute
+python run.py --model transformer_max --region California --data-root /path/to/data --execute
+python run.py --model gcn_max --region Alaska --graph knn --data-root /path/to/data --execute
+python run.py --model gcn_max --region Alaska --graph median --data-root /path/to/data --execute
 ```
 
-The data root contains `data_DA/` and `data_ANCHORAGE_DA/`; see [data instructions](data_preparation/README.md). For manual notebook execution, set `GNN_DATA_ROOT`. Checkpoints default to `save/<region>/<model>/`; `GNN_SAVE_ROOT` can override the root. Existing checkpoints are protected. Full training can require tens of GB of RAM because the original dataset implementation materializes augmented waveforms.
+Both GCN readouts use this shared entry point, without duplicate notebook wrappers. Set `--save-root` to choose outputs, or `--resume` to resume a compatible GCN run. See `python run.py --help`. Full GCN training requires CUDA and more than 40 GiB of available system RAM.
 
-## Experimental scope
+GCN retains the final SiLU-to-ReLU schedule, with validation loss selecting the final ReLU checkpoint. GT and no-message configurations retain their original settings. Details are in `experiments/settings.json`. Cross-region evaluation uses GT with attention pooling only; original checkpoint paths and hashes are in `experiments/weights.json`.
 
-Seed 42; disjoint train/validation/test sets; the best checkpoint is selected by validation loss. California has 2026/253/254 events in these sets, and Alaska has 1764/220/222. Final Alaska `no_message_attention` uses initial learning rate 1e-4 after one predefined stability retry; all other controlled configurations use 1e-3. The second-stage rate is 2e-5. The learning-rate difference is disclosed and prevents attributing its full improvement solely to pooling.
+## Scope and license
 
-`results/metrics.csv` contains the final 64 metric rows, including the two external comparisons. Predictions for the six included models are provided. Location MAE/MSE use km/km²; magnitude is unscaled; standard deviations are across events, not across seeds. R² uses the true-target mean.
+This slim source package does not bundle event-level predictions, archived results, verification reports, raw waveforms, or trained weights. STGNN and TEAM-LM implementations are not redistributed; their experiment settings remain in `experiments/baseline_settings.json`.
 
-`experiments/cross_region.ipynb` includes only the six controlled models. Its archived results use target-region normalization and the full available target catalogue. The archived Alaska `no_message_attention` transfer run used the original pre-retry checkpoint, recorded separately in `experiments/weights.json`; it must not be confused with final within-region results.
-
-## Availability and limitations
-
-Model weights and raw waveforms are not bundled; checkpoint download URLs and the original Alaska data-preparation workflow remain to be supplied. Expected checkpoint hashes are in `experiments/weights.json`. A fresh FDSN download is not guaranteed to match the original catalogue snapshot, so training checks input hashes and split order. The provided environment has not been validated by clean-environment end-to-end retraining.
-
-The existing MIT license is retained. This package does not include TEAM/STGNN implementations or claim that all reused base code was originally authored here; preserve applicable attribution for reused components.
+The existing [MIT License](LICENSE) is retained. Dependencies retain their own licenses. Please cite the manuscript above when using this work; formal publication details will be added when available.

@@ -1,0 +1,38 @@
+{
+  "California/gcn_max": {
+    "source_cells_sha256": "fb2b1584b64be470abb23a74c16a955a925d05fd75ecf2a875e417dd9c6cc023",
+    "source_cells_text_sha256": "dbacf6dfb24d1e5bd2ca48b3cd2621b0d6f6a1e5607b1b0dae20f4ea29561491",
+    "model_sha256": "8af90252b37cd8fc8df11a1986d01204f441cd6c4781b67f238d0aa64a490143",
+    "model_text_sha256": "74258d5493b8ac3c638c2d4408454fb54797df3763b5118ca8ab58c7f3bca69c",
+    "original_notebook_code_sha256": "78052a6151f5335a0522666833d0ef42f68da74ec25b680674600e1e38634581",
+    "original_model_sha256": "8af90252b37cd8fc8df11a1986d01204f441cd6c4781b67f238d0aa64a490143",
+    "frozen_training_runner_sha256": "804b44d4cd966f4fd3bf6cde9648bb01059a74fe38b2d0c5eebc4222ae1ef700"
+  },
+  "Alaska/gcn_max": {
+    "source_cells_sha256": "f98c6ae70b6d9bb5802766935edbd2ff0b61a5f150c611f69583f200afff1851",
+    "source_cells_text_sha256": "8571f45e0866204c112d838f6276eeb32c891eb8b5af4a417d41c366c2d5b1e3",
+    "model_sha256": "8af90252b37cd8fc8df11a1986d01204f441cd6c4781b67f238d0aa64a490143",
+    "model_text_sha256": "74258d5493b8ac3c638c2d4408454fb54797df3763b5118ca8ab58c7f3bca69c",
+    "original_notebook_code_sha256": "8408986aa6920fd03b71aab09e66381d9bc477676a11591f811f8c4f973b78ba",
+    "original_model_sha256": "8af90252b37cd8fc8df11a1986d01204f441cd6c4781b67f238d0aa64a490143",
+    "frozen_training_runner_sha256": "804b44d4cd966f4fd3bf6cde9648bb01059a74fe38b2d0c5eebc4222ae1ef700"
+  },
+  "California/gcn_attention": {
+    "source_cells_sha256": "bc8e2f6ccf9cf8e7abe6beacf56114b05cacf3ae908444da322b71029ac74d58",
+    "source_cells_text_sha256": "074e3cc038e527292b4adaea101173a28c93cc1c36fd4749b0b90d7f9ff35d28",
+    "model_sha256": "fd420aae2c974a28fe9186d5e3ca91be4f82afed7e99e5027211d7f7ebbc2342",
+    "model_text_sha256": "d4481e2061f6a417dc3b816af374d4f3c6a099e500c79dd348bfea2f86ddd476",
+    "original_notebook_code_sha256": "415295bf4cb1a017e5420c2ace2676a961fc61f77e3af89d7920ee7b043201fe",
+    "original_model_sha256": "fd420aae2c974a28fe9186d5e3ca91be4f82afed7e99e5027211d7f7ebbc2342",
+    "frozen_training_runner_sha256": "804b44d4cd966f4fd3bf6cde9648bb01059a74fe38b2d0c5eebc4222ae1ef700"
+  },
+  "Alaska/gcn_attention": {
+    "source_cells_sha256": "c83026b3689cd41b69d45a31e554351236262ea52e2b7a8a77c3d61f45fad3a2",
+    "source_cells_text_sha256": "4ceaa5e2bf2a02e0fb0b2ad10d3dde611a295936e3c4cec14f75cfe90812d28e",
+    "model_sha256": "fd420aae2c974a28fe9186d5e3ca91be4f82afed7e99e5027211d7f7ebbc2342",
+    "model_text_sha256": "d4481e2061f6a417dc3b816af374d4f3c6a099e500c79dd348bfea2f86ddd476",
+    "original_notebook_code_sha256": "5d554861ad1ad6f624c3a743ccf143161b4c156223f2d66d2062fc8cccfccccd",
+    "original_model_sha256": "fd420aae2c974a28fe9186d5e3ca91be4f82afed7e99e5027211d7f7ebbc2342",
+    "frozen_training_runner_sha256": "804b44d4cd966f4fd3bf6cde9648bb01059a74fe38b2d0c5eebc4222ae1ef700"
+  }
+}
